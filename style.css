@@ -1,0 +1,231 @@
+/* 공부핏 소개·개인정보처리방침 페이지 (GitHub Pages).
+   앱과 같은 톤: 다크 배경, 굵고 큰 글씨, 컬러 배너 카드. 색은 lib/design/tokens.dart와 맞춘다.
+   외부 글꼴·스크립트를 불러오지 않는다(개인정보처리방침 페이지가 제3자에게 요청을 보내지 않게). */
+:root {
+  --bg: #0e0e12;
+  --surface: #1a1a20;
+  --surface-raised: #232329;
+  --text: #f5f5f7;
+  --text-secondary: #a0a0aa;
+  --line: #2e2e36;
+  --coral: #ff6b57;
+  --yellow: #ffc24b;
+  --blue: #5b8cff;
+  --mint: #6be3b4;
+  --purple: #b48cff;
+  --link: #8fb0ff;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f6f8;
+    --surface: #ffffff;
+    --surface-raised: #ececf1;
+    --text: #15151a;
+    --text-secondary: #5a5a66;
+    --line: #dcdce3;
+    --link: #2f5fd6;
+    color-scheme: light;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+    "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+a { color: var(--link); }
+
+.wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* 머리 */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.logo {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav a:hover { color: var(--text); }
+
+/* 소개 페이지 */
+.hero { padding: 40px 0 28px; }
+
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 9vw, 56px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: clamp(17px, 4.2vw, 20px);
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+@media (prefers-color-scheme: light) {
+  .badge { background: #15151a; }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--surface);
+  border-top: 6px solid var(--accent, var(--coral));
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.card p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.card.premium { background: var(--surface-raised); }
+
+.tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--purple);
+  color: #15151a;
+  font-size: 12px;
+  font-weight: 800;
+  vertical-align: 2px;
+}
+
+.section-title {
+  margin: 40px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.note {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+}
+
+/* 문서(개인정보처리방침) */
+.doc { padding: 16px 0 40px; }
+
+.doc h1 {
+  margin: 16px 0 4px;
+  font-size: clamp(30px, 7vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.doc .meta {
+  margin: 0 0 24px;
+  color: var(--text-secondary);
+}
+
+.doc h2 {
+  margin: 36px 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.doc h3 {
+  margin: 20px 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.doc ul { padding-left: 1.2em; }
+
+.doc li { margin: 4px 0; }
+
+.summary {
+  margin: 0 0 8px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--surface);
+  border-left: 6px solid var(--mint);
+}
+
+/* 꼬리 */
+footer {
+  margin-top: 40px;
+  padding: 24px 0 40px;
+  border-top: 1px solid var(--line);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+footer a { color: var(--text-secondary); }
