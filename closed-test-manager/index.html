@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <title>ClosedTest 14</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">Google Play Closed Test Manager</div>
+      <h1>ClosedTest 14</h1>
+      <p>실제 테스터 12명 이상을 14일 동안 관리하고 증빙을 남기는 개인용 대시보드</p>
+    </div>
+    <button id="resetBtn" class="ghost danger">초기화</button>
+  </header>
+
+  <main>
+    <section class="card hero">
+      <div class="hero-copy">
+        <span class="pill">공부핏 테스트</span>
+        <h2 id="appTitle">공부핏</h2>
+        <p class="muted">테스트 링크와 테스터 상태를 한곳에서 관리합니다.</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="ring" id="progressRing"><span id="readyPercent">0%</span></div>
+        <div>
+          <strong id="readyText">준비 중</strong>
+          <div class="muted small" id="readySub">연속 14일 완료 테스터 0명</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid kpis">
+      <div class="card kpi"><span>등록 테스터</span><strong id="kpiRegistered">0</strong><small>/ 15명 권장</small></div>
+      <div class="card kpi"><span>현재 참여 중</span><strong id="kpiOpted">0</strong><small>최소 12명</small></div>
+      <div class="card kpi"><span>14일 완료</span><strong id="kpiCompleted">0</strong><small>연속 참여 기준</small></div>
+      <div class="card kpi"><span>오늘 실행 확인</span><strong id="kpiToday">0</strong><small>명</small></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div><h3>앱 설정</h3><p class="muted">Play Console에서 복사한 링크를 넣으세요.</p></div>
+        <button id="saveAppBtn" class="primary">저장</button>
+      </div>
+      <div class="form-grid">
+        <label>앱 이름<input id="appName" value="공부핏" placeholder="공부핏" /></label>
+        <label>패키지명<input id="packageName" placeholder="com.example.gongbufit" /></label>
+        <label>Google Group 링크<input id="groupLink" placeholder="https://groups.google.com/..." /></label>
+        <label>테스트 참여 링크<input id="optInLink" placeholder="https://play.google.com/apps/testing/..." /></label>
+        <label class="wide">Play Store 설치 링크<input id="storeLink" placeholder="https://play.google.com/store/apps/details?id=..." /></label>
+      </div>
+      <div class="link-actions">
+        <button data-copy="groupLink" class="ghost">그룹 링크 복사</button>
+        <button data-copy="optInLink" class="ghost">참여 링크 복사</button>
+        <button data-copy="storeLink" class="ghost">설치 링크 복사</button>
+        <button id="inviteBtn" class="ghost">초대문구 복사</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div><h3>테스터 15명 관리</h3><p class="muted">실제 Google 계정과 실제 기기 기준으로 기록하세요. 개인정보는 이 브라우저에만 저장됩니다.</p></div>
+        <button id="addTesterBtn" class="primary">+ 테스터 추가</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>이름/별칭</th><th>Gmail</th><th>기기</th><th>참여 시작</th><th>Opt-in</th><th>설치</th><th>오늘 실행</th><th>연속일</th><th></th></tr>
+          </thead>
+          <tbody id="testerBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyTesters" class="empty">아직 등록된 테스터가 없습니다.</div>
+    </section>
+
+    <section class="grid two">
+      <div class="card">
+        <div class="section-head"><div><h3>오늘 체크</h3><p class="muted">테스터가 실제로 앱을 실행한 날을 기록합니다.</p></div></div>
+        <div id="todayChecklist" class="checklist"></div>
+      </div>
+      <div class="card">
+        <div class="section-head"><div><h3>테스트 기록</h3><p class="muted">업데이트·오류·피드백을 남겨 두세요.</p></div><button id="addLogBtn" class="ghost">+ 기록</button></div>
+        <div id="logList" class="logs"></div>
+      </div>
+    </section>
+
+    <section class="card note">
+      <strong>중요</strong>
+      <p>이 도구는 가짜 계정·가짜 기기·자동 사용을 생성하지 않습니다. Google Play의 비공개 테스트 요건을 충족하려면 실제 테스터가 직접 opt-in하고 실제 기기에서 앱을 테스트해야 합니다.</p>
+    </section>
+  </main>
+
+  <dialog id="testerDialog">
+    <form method="dialog" id="testerForm">
+      <h3>테스터 등록</h3>
+      <input type="hidden" id="editIndex" />
+      <label>이름/별칭<input id="testerName" required placeholder="예: tester01" /></label>
+      <label>Gmail<input id="testerEmail" type="email" required placeholder="example@gmail.com" /></label>
+      <label>기기<input id="testerDevice" placeholder="예: Galaxy S24" /></label>
+      <label>참여 시작일<input id="testerStart" type="date" /></label>
+      <div class="checks"><label><input id="testerOpted" type="checkbox" /> Opt-in 완료</label><label><input id="testerInstalled" type="checkbox" /> 설치 완료</label></div>
+      <div class="dialog-actions"><button value="cancel" class="ghost">취소</button><button id="saveTesterBtn" value="default" class="primary">저장</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="logDialog">
+    <form method="dialog" id="logForm">
+      <h3>테스트 기록 추가</h3>
+      <label>종류<select id="logType"><option>업데이트</option><option>오류</option><option>피드백</option><option>스크린샷</option><option>기타</option></select></label>
+      <label>내용<textarea id="logText" rows="4" required placeholder="예: 1.0.3 설치 및 타이머 정상 작동 확인"></textarea></label>
+      <div class="dialog-actions"><button value="cancel" class="ghost">취소</button><button id="saveLogBtn" value="default" class="primary">저장</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
