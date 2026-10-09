@@ -292,6 +292,9 @@ footer {
 
 footer a { color: var(--text-secondary); }
 
+/* 통신판매업자 표시(전자상거래법) */
+footer .biz { margin: 12px 0 0; font-size: 12px; line-height: 1.7; }
+
 @media (max-width: 520px) {
   .tester-banner { padding: 20px; }
   .tester-cta { width: 100%; }
